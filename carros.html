@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hotwheels</title>
+</head>
+<!--Fondo de la pagina-->
+<body style="background-image: url(carritos/fondo2.jpeg); background-repeat: no-repeat; background-size: cover; background-color: chartreuse;">
+  <div style="
+        background-image: url(carritos/pista.jpg);
+        width: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: rgb(72, 7, 133);
+      "></div>
+
+<!--Diseño de los carros-->
+  <div style="position: absolute; top: 600px">
+    <button id="carro1" style="
+          background-image: url('carritos/azul.png');
+          background-color: transparent;
+          border: transparent;
+          background-position: center;
+          background-size: 100% 100%;
+          cursor: pointer;
+          top: 0px;
+          left: 20px;
+          width: 130px;
+          height: 110px;
+          position: relative;
+        "></button>
+    <br />
+    <button id="carro2" style="
+          background-image: url('carritos/verde.png');
+          background-color: transparent;
+          border: transparent;
+          background-position: center;
+          background-size: 100% 100%;
+          cursor: pointer;
+          top: 0px;
+          left: 20px;
+          width: 130px;
+          height: 110px;
+          position: relative;
+        "></button>
+    <br />
+    <button id="carro3" style="
+          background-image: url('carritos/rojo.png');
+          background-color: transparent;
+          border: transparent;
+          background-position: center;
+          background-size: 100% 100%;
+          cursor: pointer;
+          top: 0px;
+          left: 20px;
+          width: 140px;
+          height: 120px;
+          position: relative;
+        "></button>
+    <br />
+    <button id="carro4" style="
+          background-image: url('carritos/amarillo.png');
+          background-color: transparent;
+          border: transparent;
+          background-position: center;
+          background-size: 100% 100%;
+          cursor: pointer;
+          top: 0px;
+          left: 20px;
+          width: 130px;
+          height: 110px;
+          position: relative;
+        "></button>
+  </div>
+<!--Diseño del dado-->
+  <div style="text-align: center">
+    <button id="dado" style="
+          background-image: url('carritos/dado1.png');
+          background-color: transparent;
+          border: transparent;
+          background-position: center;
+          background-size: 100% 100%;
+          cursor: pointer;
+          top:0px;
+          left: 0px;
+          width: 200px;
+          height: 200px;
+          position: relative;
+  "></button>
+    <br>
+    <!--Diseño de texto que se mostrara abajo del dado al tirarlo-->
+    <font id="etiqueta" color="white" ; face="monospace" ; size=6;"></font>
+  </div>
+  
+  <div style="width: 1000px; height: 1000px; position: fixed; z-index: 5; margin-top: -5%;">
+    <a href="index.html">REGRESAR</a>
+  </div>
+
+  <script>
+    var avanzar = "derecha";
+    var inicio = 0;
+    var velocidad = 60;
+    var total_turno = 4;
+    var turno=1;
+    var posicion = [20, 20, 20, 20];
+    var jugadores=[];
+    var estado=0;
+
+    var indiceJugador = 0;
+    let dado = document.getElementById("dado");
+    //Llamar la funcio asignar turnos
+    asignarTurnos();
+
+    function asignarTurnos() {
+      //LLamar la funcion pedirNombre();
+      pedirNombres();
+      let aux;
+      alert(`Intrucciones\n1.Los turnos seran asignados conforme la maxima puntuacion de cada jugador\n2.Para tirar el dado haz click sobre el\n3.Espera tu turno para podeer tirar el dado \n\n${jugadores[indiceJugador].nombre} es tu turno`);
+    }
+    //Funcion para elegir los carros
+    function elegirCarros() {
+      //Si estado es 0, entonces seleccionar los carros y asignar turnos
+      if(estado==0){
+        for (let i = 0; i < jugadores.length; i++) {
+          //Si da click en en dado, entonces tirar el dado
+          document
+            .getElementById("carro" + (i + 1))
+            .addEventListener("click", () => {
+                alert(jugadores[indiceJugador].nombre + " eligió el coche " + i);
+                jugadores[indiceJugador]={
+                  nombre:jugadores[indiceJugador].nombre,
+                  turno:jugadores[indiceJugador].turno,
+                  coche:document.getElementById("carro" + (i + 1))
+                };
+                //Asignar el turno al jugador para elegir el carro
+                if(indiceJugador<3){
+                  alert(`${jugadores[indiceJugador+1].nombre} elige tu carro`);
+                }
+                //Si se terminaron de elegri los carros
+                if(indiceJugador<4){
+                  estado=1;
+                }
+                indiceJugador++;
+            });
+        }
+
+        alert(`${jugadores[0].nombre} elige tu carro`);
+      }
+    }
+
+    //Funcion para mover los carros
+    function moverCarrito(carro) {
+      if (avanzar == "derecha") {
+        inicio =+ velocidad;
+      } else {
+        inicio -= velocidad;
+      }
+      //
+      carro.style.left = inicio + "px";
+      this.posicion[turno - 1] = inicio
+      let ancho=window.innerWidth-100;
+      //Si el carro llega al final de la pantalla, entonces finalizar juego
+      if(inicio>=ancho){
+        alert("Gano el jugador "+jugadores[this.turno-1].nombre);
+        estado=2;
+        return;
+      }
+    }
+    //Si se da click en el dado, entonces tirar el dado
+        dado.addEventListener("click", () => {
+          if(estado==2){
+            alert("Juego terminado");
+            return;
+          }
+            //Asignar el turno al jugador para tirar el dado
+            let num;
+            dado.style.backgroundImage = "url('carritos/dado.gif')";
+            document.getElementById("etiqueta").innerHTML = "Tirando Dado...";
+
+            setTimeout(() => {
+              num = Math.round(Math.random() * (6 - 1) + 1);
+              //Si el numero es 1, ejecutar proceso de asignar turnos
+              if(estado==1){
+                inicio = this.posicion[this.turno - 1];
+                dado.style.backgroundImage = "url('carritos/dado1.png')";
+                document.getElementById("etiqueta").innerHTML = "";
+                alert("Tu número es " + num);
+                let cont = 1;
+                let idIntervalo = setInterval(() => {
+                  moverCarrito(jugadores[(this.turno-1)].coche);
+
+                  if (cont >= num) {
+                    clearInterval(idIntervalo);
+
+                    if (this.turno >= this.total_turno) { 
+                      this.turno = 1;
+                    } else {
+                      this.turno++;
+                    }
+                  } else {
+                    cont++;
+                  }
+                }, 300);
+              }else{
+                //Si no ejecutar proceso de mover carro
+                jugadores[indiceJugador]={
+                  nombre:jugadores[indiceJugador].nombre,
+                  turno:num
+                };
+                dado.style.backgroundImage = "url('carritos/dado1.png')";
+                document.getElementById("etiqueta").innerHTML = "";
+                alert(`Te ha salido el numero ${num}`);
+                indiceJugador++;
+                if(indiceJugador < 4){
+                  alert(`${jugadores[indiceJugador].nombre} es tu turno`);
+                }else{
+                  indiceJugador=0;
+                  // Ordena las posiciones de los jugadores
+                  jugadores=jugadores.sort((a,b)=>{
+                    if(a.turno>b.turno){
+                      return -1;
+                    }
+                    if(a.turno<b.turno){
+                      return 1;
+                    }
+                    return 0;
+                  });
+                  //LLamar funcion elegir carros
+                  elegirCarros();
+                }
+              }
+            }, 2000);
+        });
+    //Pedir nombres
+    function pedirNombres() {
+      for (let i = 0; i < 4; i++) {
+        jugadores.push({
+          nombre:prompt(`Ingresa el nombre del Jugador ${i+1}`)
+        });
+      }
+    }
+  </script>
+</body>
+
+</html>

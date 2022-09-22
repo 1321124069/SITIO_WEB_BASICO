@@ -1,0 +1,188 @@
+.edificio{
+    position: absolute;
+    background-color: aqua;
+    width: 20%;
+    height: 75%;
+    margin-top: 5%;
+    margin-left: 5%;
+}
+
+.piso1{
+    position: relative;
+    background-image: url(img/ultimoPiso.jpg);
+    background-size: 100% 100%;
+    width: 100%;
+    height:16.6666666%;
+    
+}
+
+.per1{
+    position: absolute;
+    background :url(img/persona.png) no-repeat;
+    background-size: 100% 100%;
+    width: 10%;
+    height: 100%;
+    margin-left: 90%;
+    
+}
+
+.per2{
+    position: absolute;
+    background :url(img/persona.png) no-repeat;
+    background-size: 100% 100%;
+    width: 10%;
+    height: 100%;
+    margin-left: 80%;
+    
+}
+
+.per3{
+    position: absolute;
+    background :url(img/persona.png) no-repeat;
+    background-size: 100% 100%;
+    width: 10%;
+    height: 100%;
+    margin-left: 70%;
+    
+}
+
+.per4{
+    position: absolute;
+    background :url(img/persona.png) no-repeat;
+    background-size: 100% 100%;
+    width: 10%;
+    height: 100%;
+    margin-left: 60%;
+    
+}
+
+.per5{
+    position: absolute;
+    background :url(img/persona.png) no-repeat;
+    background-size: 100% 100%;
+    width: 10%;
+    height: 100%;
+    margin-left: 50%;
+    
+}
+
+.piso2{
+    position: relative;
+    background-image: url(img/piso2.jpg);
+    background-size: 100% 100%;
+    width: 100%;
+    height: 16.6666666%;
+}
+
+.piso3{
+    position: relative;
+    background-image: url(img/piso3.jpg);
+    background-size: 100% 100%;
+    width: 100%;
+    height: 16.6666666%;
+}
+
+.piso4{
+    position: relative;
+    background-color: brown;
+    background-size: 100% 100%;
+    width: 100%;
+    height:16.6666666%;
+}
+
+.piso5{
+    position: relative;
+    background-color: blue;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 16.6666666%;
+}
+
+.recepcion{
+    position: relative;
+    background-image: url(img/recepcion.jpg);
+    background-size: 100% 100%;
+    width: 100%;
+    height: 16.6666666%;
+    margin-left: 0%;
+}
+
+.ele{
+    position: absolute;
+    background-color: orange;
+    width: 20%;
+    height: 75%;
+    margin-top: 5%;
+    margin-left: 25%;
+}
+
+.elevador{
+    position: relative;
+    background-color: blueviolet;
+    width: 100%;
+    height: 16.666666666666666666666%;
+    top: 83.33333333333%;
+}
+
+.contenedor-botones{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 2fr);
+    gap: 40px;
+}
+
+.boton{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    height: 80px;
+    background: white;
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 30px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    /* text-transform: uppercase;*/
+    transition: .3s ease all;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    left: 60%;
+}
+
+.boton span{
+    position: relative;
+    z-index: 2;
+    transition: .3s ease all;
+}
+
+.boton.uno::after{
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: blue;
+    position: absolute;
+    z-index: 1;
+    top: -80px;
+    left: 0;
+    transition: .3s ease-in-out all;
+}
+
+.boton.dos::after{
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: blue;
+    position: absolute;
+    z-index: 1;
+    top: -80px;
+    left: 0;
+    transition: .3s ease-in-out all;
+}
+
+.boton:hover::after{
+    top: 0;
+}
+
